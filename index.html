@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Briefing do casamento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE  warm, calm and clear; a guest book more than a form
+   IDEA   a printed order of the day the couple fills in, hour by hour
+   PICTURE the timeline itself: a vertical rail of hours with each moment hanging from it
+   COLOUR white, deep green ink, sage planes, one green for progress
+   TYPE   Instrument Serif for titles and hours, Plus Jakarta Sans for everything else
+   LAYOUT one step per screen on the phone, sticky progress on top and buttons at the bottom */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1714);--ink:light-dark(#12241d,#eaf1ec);--mute:light-dark(#5f6f68,#9fb0a8);--line:light-dark(#dfe7e2,#24332d);--plane:light-dark(#f1f5f2,#17221d);--acc:light-dark(#1d7a52,#3fc58a);--acc2:light-dark(#e3f2ea,#183528);--onacc:light-dark(#fff,#08140f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Plus Jakarta Sans",system-ui,sans-serif;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.wrap{max-width:680px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left)) calc(120px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-right))}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:calc(12px + env(safe-area-inset-top)) 0 12px}
+.hd{max-width:680px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:13px;color:var(--mute);font-weight:600}
+.stepn{font-size:13px;color:var(--mute);white-space:nowrap}
+.bar{max-width:680px;margin:10px auto 0;padding:0 max(18px,env(safe-area-inset-left))}
+.bar div{height:4px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc);border-radius:4px;transition:width .35s ease}
+h1,h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;letter-spacing:-.01em;margin:0}
+h1{font-size:clamp(40px,11vw,56px);line-height:1}
+h2{font-size:clamp(32px,8vw,42px);line-height:1.05;margin-top:22px}
+.lead{color:var(--mute);margin:10px 0 0;font-size:16px;max-width:52ch}
+.intro{padding:28px 0 6px}
+.intro .rail{margin-top:26px;display:grid;gap:0;border-left:2px solid var(--acc);padding-left:18px}
+.intro .rail div{position:relative;padding:6px 0}
+.intro .rail div::before{content:"";position:absolute;left:-25px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--acc)}
+.intro .rail b{font-family:"Instrument Serif",serif;font-size:24px;font-weight:400;margin-right:10px}
+.intro .rail span{color:var(--mute)}
+section.step{display:none;animation:in .3s ease}
+section.step.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){section.step{animation:none}.bar i{transition:none}}
+.card{background:var(--plane);border-radius:18px;padding:16px;margin-top:14px}
+.card h3{margin:0 0 10px;font-size:17px;font-weight:700}
+.card .sub{font-size:14px;color:var(--mute);margin:-6px 0 10px}
+.f{display:block;margin-top:10px}
+.f>span{display:block;font-size:13px;font-weight:600;color:var(--mute);margin-bottom:5px}
+input,select,textarea{width:100%;font-size:16px;min-height:48px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+input:focus,select:focus,textarea:focus{border-color:var(--acc);outline:none;box-shadow:0 0 0 3px var(--acc2)}
+textarea{min-height:96px;resize:vertical;line-height:1.45}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cb{display:flex;align-items:center;gap:10px;min-height:44px;margin-top:6px;font-size:15px;cursor:pointer}
+.cb input{width:22px;height:22px;min-height:0;accent-color:var(--acc);flex:none}
+.tl{margin-top:16px;position:relative}
+.tl::before{content:"";position:absolute;left:55px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.ti{display:grid;grid-template-columns:112px minmax(0,1fr) 40px;gap:10px;align-items:start;position:relative;padding:8px 0}
+.ti input[type=time]{font-family:"Plus Jakarta Sans",sans-serif;font-weight:700;font-size:18px;padding:6px 8px;text-align:center;min-height:48px;position:relative;z-index:1}
+.ti .body{display:grid;gap:8px;background:var(--plane);border-radius:14px;padding:10px}
+.ti .body input,.ti .body select{min-height:44px;background:var(--bg)}
+.ti.off .body{opacity:.55}
+.del{width:40px;height:40px;border:0;border-radius:50%;background:none;color:var(--mute);font-size:22px;cursor:pointer;margin-top:4px}
+.del:hover{background:var(--plane);color:var(--ink)}
+.add{margin-top:12px;min-height:48px;width:100%;border:1.5px dashed var(--line);border-radius:14px;background:none;cursor:pointer;font-weight:600;color:var(--acc)}
+.row{display:grid;gap:8px;background:var(--bg);border-radius:14px;padding:12px;margin-top:10px;position:relative;border:1px solid var(--line)}
+.row .del{position:absolute;top:6px;right:6px}
+.row .two{padding-right:0}
+.hint{font-size:14px;color:var(--mute);margin:12px 0 0}
+nav.foot{position:fixed;left:0;right:0;bottom:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px max(18px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+nav.foot .in{max-width:680px;margin:0 auto;display:flex;gap:10px}
+.btn{min-height:52px;padding:0 22px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--onacc);flex:1}
+.btn.wa{background:#1DA851;border-color:#1DA851;color:#fff}
+.btn[hidden]{display:none}
+.out{white-space:pre-wrap;background:var(--plane);border-radius:16px;padding:16px;font-size:14px;line-height:1.5;max-height:46vh;overflow:auto;margin-top:14px}
+.acts{display:grid;gap:10px;margin-top:16px}
+.ok{margin-top:12px;color:var(--acc);font-weight:600;min-height:24px}
+.miss{margin-top:12px;font-size:14px;color:var(--mute)}
+.miss b{color:var(--ink)}
+@media(max-width:420px){.two{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:560px){.ti{grid-template-columns:minmax(0,1fr) 40px;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}.ti input[type=time]{width:140px;justify-self:start}.ti .body{grid-column:1/-1;grid-row:2}.ti .del{grid-column:2;grid-row:1}.tl::before{display:none}}
+</style>
+</head>
+<body>
+<header>
+ <div class="hd"><span class="brand">Gerardo Burmester · Filme de casamento</span><span class="stepn" id="stepn"></span></div>
+ <div class="bar"><div><i id="prog" style="width:0"></i></div></div>
+</header>
+<div class="wrap">
+<form id="f" novalidate>
+<section class="step on" data-s="0">
+ <div class="intro">
+  <h1>O vosso dia, hora a hora</h1>
+  <p class="lead">Para filmar bem o vosso casamento preciso de saber onde e quando tudo acontece. Demora uns 10 minutos. O que não souberem ainda, deixem em branco e enviem mais tarde.</p>
+  <div class="rail"><div><b>1</b><span>Vocês e os contactos</span></div><div><b>2</b><span>Os locais do dia</span></div><div><b>3</b><span>O programa, hora a hora</span></div><div><b>4</b><span>Discursos e notas</span></div><div><b>5</b><span>Enviar</span></div></div>
+  <p class="hint">As respostas ficam guardadas neste telemóvel enquanto preenchem, por isso podem parar e voltar depois.</p>
+ </div>
+</section>
+
+<section class="step" data-s="1">
+ <h2>Vocês</h2>
+ <div class="card">
+  <div class="two"><label class="f"><span>Nome</span><input data-k="n1" autocomplete="given-name"></label><label class="f"><span>Nome</span><input data-k="n2"></label></div>
+  <label class="f"><span>Data do casamento</span><input type="date" data-k="date"></label>
+  <div class="two"><label class="f"><span>Telemóvel</span><input type="tel" data-k="phone" autocomplete="tel"></label><label class="f"><span>Email</span><input type="email" data-k="email" autocomplete="email"></label></div>
+ </div>
+ <div class="card"><h3>Quem mais vai estar a trabalhar</h3>
+  <div class="two"><label class="f"><span>Wedding planner (nome e contacto)</span><input data-k="planner"></label><label class="f"><span>Fotógrafo (nome)</span><input data-k="photo"></label></div>
+  <label class="f"><span>Mestre de cerimónias ou pessoa que coordena o dia</span><input data-k="mc"></label>
+ </div>
+</section>
+
+<section class="step" data-s="2">
+ <h2>Os locais</h2>
+ <p class="lead">Onde se vestem, onde casam e onde é a festa. A morada ajuda-nos a planear as deslocações.</p>
+ <div id="locs"></div>
+ <button type="button" class="add" data-add="locs">Adicionar outro local</button>
+</section>
+
+<section class="step" data-s="3">
+ <h2>O programa do dia</h2>
+ <p class="lead">Já deixei os momentos mais comuns. Ponham a hora a que acontecem, mudem o texto à vontade e apaguem o que não se aplica. Só seguem os momentos com hora.</p>
+ <div class="tl" id="tl"></div>
+ <button type="button" class="add" data-add="tl">Adicionar momento</button>
+</section>
+
+<section class="step" data-s="4">
+ <h2>Discursos e notas</h2>
+ <p class="lead">Os discursos são dos momentos mais bonitos do filme. Precisamos de saber quem fala, quando e onde, para termos o som preparado.</p>
+ <label class="cb"><input type="checkbox" data-k="noSpeech"> Não vai haver discursos</label>
+ <div id="sp"></div>
+ <button type="button" class="add" data-add="sp" id="addsp">Adicionar discurso</button>
+ <div class="card"><h3>Surpresas</h3><p class="sub">Alguma surpresa preparada pelos amigos ou família? Contem-nos, fica entre nós.</p><textarea data-k="surprises" aria-label="Surpresas"></textarea></div>
+ <div class="card"><h3>Mais alguma coisa</h3>
+  <label class="f"><span>Regras dos locais (a igreja limita filmagens? Drone permitido?)</span><textarea data-k="limits"></textarea></label>
+  <label class="f"><span>Outras notas para nós</span><textarea data-k="notes"></textarea></label>
+ </div>
+</section>
+
+
+
+<section class="step" data-s="5">
+ <h2>Está quase</h2>
+ <p class="lead">Revejam o resumo e enviem-me por WhatsApp. Se preferirem, copiem o texto e mandem por email.</p>
+ <p class="miss" id="miss"></p>
+ <div class="out" id="out"></div>
+ <div class="acts"><a class="btn wa" id="wa" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a><button type="button" class="btn" id="copy">Copiar texto</button></div>
+ <p class="ok" id="ok" role="status"></p>
+</section>
+</form>
+</div>
+<nav class="foot"><div class="in"><button type="button" class="btn" id="back" hidden>Voltar</button><button type="button" class="btn pri" id="next">Começar</button></div></nav>
+<script>
+{
+const WA_NUMBER='351914443813';
+const KEY='briefing-casamento-v1';
+const STEPS=['Início','Vocês','Locais','Programa','Discursos e notas','Enviar'];
+const LOCT=['Preparativos','Cerimónia','Festa','Sessão de fotos','Outro'];
+const blank=()=>({n1:'',n2:'',date:'',phone:'',email:'',planner:'',photo:'',mc:'',
+ locs:[{type:'Preparativos',who:'Noiva',name:'',addr:'',time:''},{type:'Preparativos',who:'Noivo',name:'',addr:'',time:''},{type:'Cerimónia',who:'Religiosa',name:'',addr:'',time:''},{type:'Festa',who:'',name:'',addr:'',time:''}],
+ tl:[['','Começam os preparativos da noiva','Preparativos · Noiva'],['','Começam os preparativos do noivo','Preparativos · Noivo'],['','Noivo sai para a cerimónia',''],['','Noiva sai para a cerimónia',''],['','Início da cerimónia','Cerimónia'],['','Saída dos noivos (chuva de arroz, pétalas)','Cerimónia'],['','Cocktail','Festa'],['','Sessão fotográfica dos noivos',''],['','Entrada dos noivos na sala','Festa'],['','Jantar','Festa'],['','Corte do bolo','Festa'],['','Primeira dança','Festa'],['','Abertura da pista','Festa'],['','Fim da festa','Festa']].map(([time,what,where])=>({time,what,where,notes:''})),
+ noSpeech:false,sp:[{who:'',rel:'',when:'',where:''}],surprises:'',
+ pp:[{name:'',rel:'Pais',note:''},{name:'',rel:'Padrinhos',note:''},{name:'',rel:'Avós',note:''}],
+ mIn:'',mOut:'',mDance:'',mFilm:'',limits:'',notes:''});
+let S=blank(),step=0;
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object')S={...S,...s}}catch(e){}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let st;function save(){clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},300)}
+const g=(p)=>p.split('.').reduce((a,k)=>a==null?a:a[k],S);
+const sp=(p,v)=>{const ks=p.split('.');let a=S;for(let i=0;i<ks.length-1;i++)a=a[ks[i]];a[ks[ks.length-1]]=v};
+const locLabel=l=>l.type==='Preparativos'?`Preparativos · ${l.who||'?'}`:l.type==='Cerimónia'?'Cerimónia':l.type==='Outro'?(l.who||'Outro local'):l.type;
+function I(k,label,type='text',extra=''){return `<label class="f"><span>${label}</span><input type="${type}" data-k="${k}" value="${esc(g(k))}" ${extra}></label>`}
+function renderLocs(){$('#locs').innerHTML=S.locs.map((l,i)=>{const base=i<4;
+ let head=l.type==='Preparativos'?`<h3>Onde se prepara ${l.who==='Noiva'?'a noiva':l.who==='Noivo'?'o noivo':''}</h3><div class="two">${I(`locs.${i}.who`,'Quem','text')}${I(`locs.${i}.time`,'A partir de que horas','time')}</div>`
+ :l.type==='Cerimónia'?`<h3>Cerimónia</h3><label class="f"><span>Tipo</span><select data-k="locs.${i}.who">${['Religiosa','Civil','Simbólica'].map(o=>`<option ${o===l.who?'selected':''}>${o}</option>`).join('')}</select></label>`
+ :l.type==='Festa'?`<h3>Festa</h3>`
+ :`<h3>Outro local</h3><div class="two"><label class="f"><span>Tipo</span><select data-k="locs.${i}.type">${LOCT.map(o=>`<option ${o===l.type?'selected':''}>${o}</option>`).join('')}</select></label>${I(`locs.${i}.who`,'O que acontece lá')}</div>${I(`locs.${i}.time`,'Hora','time')}`;
+ return `<div class="card">${base?'':`<button type="button" class="del" style="float:right" data-del="locs.${i}" aria-label="Remover local">×</button>`}${head}${I(`locs.${i}.name`,'Nome do local',l.type==='Cerimónia'?'text':'text','placeholder="'+(l.type==='Cerimónia'?'Igreja de…':l.type==='Festa'?'Quinta…':'Casa dos pais, hotel…')+'"')}${I(`locs.${i}.addr`,'Morada ou localidade')}${I(`locs.${i}.map`,'Link do Google Maps (opcional)','url','placeholder="Colem aqui o link do pin" inputmode="url"')}</div>`}).join('')}
+function placeOpts(v){const o=['',...S.locs.map(locLabel)];if(v&&!o.includes(v))o.push(v);return o.map(x=>`<option value="${esc(x)}" ${x===v?'selected':''}>${x?esc(x):'Local'}</option>`).join('')}
+function renderTl(){$('#tl').innerHTML=S.tl.map((t,i)=>`<div class="ti${t.time?'':' off'}"><input type="time" data-k="tl.${i}.time" value="${esc(t.time)}" aria-label="Hora"><div class="body"><input data-k="tl.${i}.what" value="${esc(t.what)}" placeholder="O que acontece" aria-label="O que acontece"><select data-k="tl.${i}.where" aria-label="Onde">${placeOpts(t.where)}</select><input data-k="tl.${i}.notes" value="${esc(t.notes)}" placeholder="Notas (opcional)" aria-label="Notas"></div><button type="button" class="del" data-del="tl.${i}" aria-label="Apagar momento">×</button></div>`).join('')}
+function renderSp(){$('#sp').innerHTML=S.noSpeech?'':S.sp.map((s,i)=>`<div class="row"><button type="button" class="del" data-del="sp.${i}" aria-label="Remover discurso">×</button><div class="two">${I(`sp.${i}.who`,'Quem fala')}${I(`sp.${i}.rel`,'Quem é (pai da noiva, padrinho…)')}</div><div class="two">${I(`sp.${i}.when`,'Quando (hora ou momento)')}${I(`sp.${i}.where`,'Onde (igreja, sala, jardim…)')}</div></div>`).join('');$('#addsp').hidden=S.noSpeech}
+function renderPp(){if(!$('#pp'))return;$('#pp').innerHTML=S.pp.map((p,i)=>`<div class="row"><button type="button" class="del" data-del="pp.${i}" aria-label="Remover pessoa">×</button><div class="two">${I(`pp.${i}.name`,'Nome(s)')}${I(`pp.${i}.rel`,'Quem são')}</div>${I(`pp.${i}.note`,'Nota (ex.: avó em cadeira de rodas, vem do estrangeiro)')}</div>`).join('')}
+function bindStatic(){document.querySelectorAll('section.step [data-k]').forEach(el=>{if(el.closest('#locs,#tl,#sp,#pp'))return;const v=g(el.dataset.k);if(el.type==='checkbox')el.checked=!!v;else el.value=v==null?'':v})}
+function renderAll(){renderLocs();renderTl();renderSp();renderPp();bindStatic()}
+function text(){const L=[];const names=[S.n1,S.n2].filter(Boolean).join(' & ');
+ L.push('BRIEFING DO CASAMENTO');L.push(`Noivos: ${names||'(por preencher)'}`);if(S.date)L.push(`Data: ${S.date.split('-').reverse().join('/')}`);
+ if(S.phone)L.push(`Telemóvel: ${S.phone}`);if(S.email)L.push(`Email: ${S.email}`);if(S.planner)L.push(`Wedding planner: ${S.planner}`);if(S.photo)L.push(`Fotógrafo: ${S.photo}`);if(S.mc)L.push(`Coordenação do dia: ${S.mc}`);
+ const lc=S.locs.filter(l=>l.name||l.addr||l.map);if(lc.length){L.push('\nLOCAIS');lc.forEach(l=>L.push(`• ${locLabel(l)}${l.type==='Cerimónia'&&l.who?' ('+l.who.toLowerCase()+')':''}: ${[l.name,l.addr].filter(Boolean).join(', ')}${l.time?' · a partir das '+l.time:''}${l.map?'\n  Mapa: '+l.map:''}`))}
+ const tl=S.tl.filter(t=>t.time&&t.what).sort((a,b)=>{const f=x=>{let[h,m]=x.split(':').map(Number);if(h<6)h+=24;return h*60+m};return f(a.time)-f(b.time)});
+ if(tl.length){L.push('\nPROGRAMA DO DIA');tl.forEach(t=>L.push(`${t.time} · ${t.what}${t.where?' · '+t.where:''}${t.notes?' ('+t.notes+')':''}`))}
+ if(S.noSpeech)L.push('\nDISCURSOS\nNão vai haver discursos.');else{const s=S.sp.filter(x=>x.who||x.rel);if(s.length){L.push('\nDISCURSOS');s.forEach(x=>L.push(`• ${[x.who,x.rel&&'('+x.rel+')'].filter(Boolean).join(' ')}${x.when?' · quando: '+x.when:''}${x.where?' · onde: '+x.where:''}`))}}
+ if(S.surprises.trim())L.push(`\nSURPRESAS\n${S.surprises.trim()}`);
+ if(S.limits.trim())L.push(`\nREGRAS DOS LOCAIS\n${S.limits.trim()}`);if(S.notes.trim())L.push(`\nNOTAS\n${S.notes.trim()}`);
+ return L.join('\n')}
+function missing(){const m=[];if(!S.n1&&!S.n2)m.push('nomes');if(!S.date)m.push('data');if(!S.locs.some(l=>l.type==='Cerimónia'&&l.name))m.push('local da cerimónia');if(!S.locs.some(l=>l.type==='Festa'&&l.name))m.push('local da festa');if(!S.tl.some(t=>t.time))m.push('horas do programa');return m}
+function show(){document.querySelectorAll('section.step').forEach(s=>s.classList.toggle('on',+s.dataset.s===step));
+ $('#prog').style.width=(step/(STEPS.length-1)*100)+'%';$('#stepn').textContent=step?`${step} de ${STEPS.length-1}`:'';
+ $('#back').hidden=step===0;$('#next').hidden=step===STEPS.length-1;$('#next').textContent=step===0?'Começar':step===STEPS.length-2?'Rever e enviar':'Seguinte';
+ if(step===3)renderTl();
+ if(step===STEPS.length-1){const t=text();$('#out').textContent=t;const mi=missing();$('#miss').innerHTML=mi.length?`Ainda falta: <b>${mi.join(', ')}</b>. Podem enviar assim e completar depois.`:'';$('#wa').href=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;$('#ok').textContent=''}
+ window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
+function onField(e){const k=e.target.dataset.k;if(!k)return;sp(k,e.target.type==='checkbox'?e.target.checked:e.target.value);save();
+ if(k==='noSpeech')renderSp();
+ if(/^tl\.\d+\.time$/.test(k))e.target.closest('.ti').classList.toggle('off',!e.target.value);
+ if(/^locs\.\d+\.(type|who)$/.test(k)&&e.target.tagName==='SELECT'&&e.type==='change')renderLocs()}
+document.addEventListener('input',onField);document.addEventListener('change',onField);
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.add){const a=b.dataset.add;S[a].push(a==='locs'?{type:'Sessão de fotos',who:'',name:'',addr:'',time:''}:a==='tl'?{time:'',what:'',where:'',notes:''}:a==='sp'?{who:'',rel:'',when:'',where:''}:{name:'',rel:'',note:''});save();({locs:renderLocs,tl:renderTl,sp:renderSp,pp:renderPp})[a]();return}
+ if(b.dataset.del){const[a,i]=b.dataset.del.split('.');S[a].splice(+i,1);save();({locs:renderLocs,tl:renderTl,sp:renderSp,pp:renderPp})[a]();return}
+ if(b.id==='next'){step=Math.min(STEPS.length-1,step+1);show()}
+ if(b.id==='back'){step=Math.max(0,step-1);show()}
+ if(b.id==='copy'){const t=text();navigator.clipboard.writeText(t).then(()=>{$('#ok').textContent='Texto copiado. Agora é só colar numa mensagem para o Gerardo.'}).catch(()=>{const r=document.createRange();r.selectNodeContents($('#out'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('#ok').textContent='Selecionei o texto. Copiem e colem numa mensagem.'})}
+});
+$('#f').addEventListener('submit',e=>e.preventDefault());
+renderAll();show();
+}
+</script>
+</body>
+</html>
