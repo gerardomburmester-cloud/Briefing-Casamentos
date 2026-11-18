@@ -14,7 +14,9 @@
    COLOUR white, deep green ink, sage planes, one green for progress
    TYPE   Instrument Serif for titles and hours, Plus Jakarta Sans for everything else
    LAYOUT one step per screen on the phone, sticky progress on top and buttons at the bottom */
-:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0f1714);--ink:light-dark(#12241d,#eaf1ec);--mute:light-dark(#5f6f68,#9fb0a8);--line:light-dark(#dfe7e2,#24332d);--plane:light-dark(#f1f5f2,#17221d);--acc:light-dark(#1d7a52,#3fc58a);--acc2:light-dark(#e3f2ea,#183528);--onacc:light-dark(#fff,#08140f)}
+:root{color-scheme:light dark;--bg:#ffffff;--ink:#12241d;--mute:#5f6f68;--line:#dfe7e2;--plane:#f1f5f2;--acc:#1d7a52;--acc2:#e3f2ea;--onacc:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0f1714;--ink:#eaf1ec;--mute:#9fb0a8;--line:#24332d;--plane:#17221d;--acc:#3fc58a;--acc2:#183528;--onacc:#08140f}}
+:root[data-theme=dark]{--bg:#0f1714;--ink:#eaf1ec;--mute:#9fb0a8;--line:#24332d;--plane:#17221d;--acc:#3fc58a;--acc2:#183528;--onacc:#08140f}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 html{-webkit-text-size-adjust:100%}
@@ -22,7 +24,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Plus Jakarta
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .wrap{max-width:680px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left)) calc(120px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-right))}
-header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:calc(12px + env(safe-area-inset-top)) 0 12px}
+header{position:sticky;top:0;z-index:5;background:var(--bg);background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:calc(12px + env(safe-area-inset-top)) 0 12px}
 .hd{max-width:680px;margin:0 auto;padding:0 max(18px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font-size:13px;color:var(--mute);font-weight:600}
 .stepn{font-size:13px;color:var(--mute);white-space:nowrap}
@@ -68,7 +70,7 @@ textarea{min-height:96px;resize:vertical;line-height:1.45}
 .row .del{position:absolute;top:6px;right:6px}
 .row .two{padding-right:0}
 .hint{font-size:14px;color:var(--mute);margin:12px 0 0}
-nav.foot{position:fixed;left:0;right:0;bottom:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px max(18px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+nav.foot{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--bg);background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px max(18px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
 nav.foot .in{max-width:680px;margin:0 auto;display:flex;gap:10px}
 .btn{min-height:52px;padding:0 22px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 .btn.pri{background:var(--acc);border-color:var(--acc);color:var(--onacc);flex:1}
@@ -152,71 +154,236 @@ nav.foot .in{max-width:680px;margin:0 auto;display:flex;gap:10px}
 </form>
 </div>
 <nav class="foot"><div class="in"><button type="button" class="btn" id="back" hidden>Voltar</button><button type="button" class="btn pri" id="next">Começar</button></div></nav>
+<script>window.onerror=function(m,src,l){try{var d=document.getElementById('jserr');if(!d){d=document.createElement('div');d.id='jserr';d.style.cssText='position:fixed;left:8px;right:8px;top:8px;z-index:99;background:#fde6e2;color:#b42318;padding:10px 12px;border-radius:10px;font:13px/1.4 -apple-system,system-ui,sans-serif';document.body.appendChild(d)}d.textContent='Erro no formulário: '+m+' (linha '+l+'). Tirem uma captura de ecrã e enviem ao Gerardo.'}catch(e){}};</script>
 <script>
+var __defProp = Object.defineProperty;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
 {
-const WA_NUMBER='351914443813';
-const KEY='briefing-casamento-v1';
-const STEPS=['Início','Vocês','Locais','Programa','Discursos e notas','Enviar'];
-const LOCT=['Preparativos','Cerimónia','Festa','Sessão de fotos','Outro'];
-const blank=()=>({n1:'',n2:'',date:'',phone:'',email:'',planner:'',photo:'',mc:'',
- locs:[{type:'Preparativos',who:'Noiva',name:'',addr:'',time:''},{type:'Preparativos',who:'Noivo',name:'',addr:'',time:''},{type:'Cerimónia',who:'Religiosa',name:'',addr:'',time:''},{type:'Festa',who:'',name:'',addr:'',time:''}],
- tl:[['','Começam os preparativos da noiva','Preparativos · Noiva'],['','Começam os preparativos do noivo','Preparativos · Noivo'],['','Noivo sai para a cerimónia',''],['','Noiva sai para a cerimónia',''],['','Início da cerimónia','Cerimónia'],['','Saída dos noivos (chuva de arroz, pétalas)','Cerimónia'],['','Cocktail','Festa'],['','Sessão fotográfica dos noivos',''],['','Entrada dos noivos na sala','Festa'],['','Jantar','Festa'],['','Corte do bolo','Festa'],['','Primeira dança','Festa'],['','Abertura da pista','Festa'],['','Fim da festa','Festa']].map(([time,what,where])=>({time,what,where,notes:''})),
- noSpeech:false,sp:[{who:'',rel:'',when:'',where:''}],surprises:'',
- pp:[{name:'',rel:'Pais',note:''},{name:'',rel:'Padrinhos',note:''},{name:'',rel:'Avós',note:''}],
- mIn:'',mOut:'',mDance:'',mFilm:'',limits:'',notes:''});
-let S=blank(),step=0;
-try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object')S={...S,...s}}catch(e){}
-const $=s=>document.querySelector(s);
-const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let st;function save(){clearTimeout(st);st=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},300)}
-const g=(p)=>p.split('.').reduce((a,k)=>a==null?a:a[k],S);
-const sp=(p,v)=>{const ks=p.split('.');let a=S;for(let i=0;i<ks.length-1;i++)a=a[ks[i]];a[ks[ks.length-1]]=v};
-const locLabel=l=>l.type==='Preparativos'?`Preparativos · ${l.who||'?'}`:l.type==='Cerimónia'?'Cerimónia':l.type==='Outro'?(l.who||'Outro local'):l.type;
-function I(k,label,type='text',extra=''){return `<label class="f"><span>${label}</span><input type="${type}" data-k="${k}" value="${esc(g(k))}" ${extra}></label>`}
-function renderLocs(){$('#locs').innerHTML=S.locs.map((l,i)=>{const base=i<4;
- let head=l.type==='Preparativos'?`<h3>Onde se prepara ${l.who==='Noiva'?'a noiva':l.who==='Noivo'?'o noivo':''}</h3><div class="two">${I(`locs.${i}.who`,'Quem','text')}${I(`locs.${i}.time`,'A partir de que horas','time')}</div>`
- :l.type==='Cerimónia'?`<h3>Cerimónia</h3><label class="f"><span>Tipo</span><select data-k="locs.${i}.who">${['Religiosa','Civil','Simbólica'].map(o=>`<option ${o===l.who?'selected':''}>${o}</option>`).join('')}</select></label>`
- :l.type==='Festa'?`<h3>Festa</h3>`
- :`<h3>Outro local</h3><div class="two"><label class="f"><span>Tipo</span><select data-k="locs.${i}.type">${LOCT.map(o=>`<option ${o===l.type?'selected':''}>${o}</option>`).join('')}</select></label>${I(`locs.${i}.who`,'O que acontece lá')}</div>${I(`locs.${i}.time`,'Hora','time')}`;
- return `<div class="card">${base?'':`<button type="button" class="del" style="float:right" data-del="locs.${i}" aria-label="Remover local">×</button>`}${head}${I(`locs.${i}.name`,'Nome do local',l.type==='Cerimónia'?'text':'text','placeholder="'+(l.type==='Cerimónia'?'Igreja de…':l.type==='Festa'?'Quinta…':'Casa dos pais, hotel…')+'"')}${I(`locs.${i}.addr`,'Morada ou localidade')}${I(`locs.${i}.map`,'Link do Google Maps (opcional)','url','placeholder="Colem aqui o link do pin" inputmode="url"')}</div>`}).join('')}
-function placeOpts(v){const o=['',...S.locs.map(locLabel)];if(v&&!o.includes(v))o.push(v);return o.map(x=>`<option value="${esc(x)}" ${x===v?'selected':''}>${x?esc(x):'Local'}</option>`).join('')}
-function renderTl(){$('#tl').innerHTML=S.tl.map((t,i)=>`<div class="ti${t.time?'':' off'}"><input type="time" data-k="tl.${i}.time" value="${esc(t.time)}" aria-label="Hora"><div class="body"><input data-k="tl.${i}.what" value="${esc(t.what)}" placeholder="O que acontece" aria-label="O que acontece"><select data-k="tl.${i}.where" aria-label="Onde">${placeOpts(t.where)}</select><input data-k="tl.${i}.notes" value="${esc(t.notes)}" placeholder="Notas (opcional)" aria-label="Notas"></div><button type="button" class="del" data-del="tl.${i}" aria-label="Apagar momento">×</button></div>`).join('')}
-function renderSp(){$('#sp').innerHTML=S.noSpeech?'':S.sp.map((s,i)=>`<div class="row"><button type="button" class="del" data-del="sp.${i}" aria-label="Remover discurso">×</button><div class="two">${I(`sp.${i}.who`,'Quem fala')}${I(`sp.${i}.rel`,'Quem é (pai da noiva, padrinho…)')}</div><div class="two">${I(`sp.${i}.when`,'Quando (hora ou momento)')}${I(`sp.${i}.where`,'Onde (igreja, sala, jardim…)')}</div></div>`).join('');$('#addsp').hidden=S.noSpeech}
-function renderPp(){if(!$('#pp'))return;$('#pp').innerHTML=S.pp.map((p,i)=>`<div class="row"><button type="button" class="del" data-del="pp.${i}" aria-label="Remover pessoa">×</button><div class="two">${I(`pp.${i}.name`,'Nome(s)')}${I(`pp.${i}.rel`,'Quem são')}</div>${I(`pp.${i}.note`,'Nota (ex.: avó em cadeira de rodas, vem do estrangeiro)')}</div>`).join('')}
-function bindStatic(){document.querySelectorAll('section.step [data-k]').forEach(el=>{if(el.closest('#locs,#tl,#sp,#pp'))return;const v=g(el.dataset.k);if(el.type==='checkbox')el.checked=!!v;else el.value=v==null?'':v})}
-function renderAll(){renderLocs();renderTl();renderSp();renderPp();bindStatic()}
-function text(){const L=[];const names=[S.n1,S.n2].filter(Boolean).join(' & ');
- L.push('BRIEFING DO CASAMENTO');L.push(`Noivos: ${names||'(por preencher)'}`);if(S.date)L.push(`Data: ${S.date.split('-').reverse().join('/')}`);
- if(S.phone)L.push(`Telemóvel: ${S.phone}`);if(S.email)L.push(`Email: ${S.email}`);if(S.planner)L.push(`Wedding planner: ${S.planner}`);if(S.photo)L.push(`Fotógrafo: ${S.photo}`);if(S.mc)L.push(`Coordenação do dia: ${S.mc}`);
- const lc=S.locs.filter(l=>l.name||l.addr||l.map);if(lc.length){L.push('\nLOCAIS');lc.forEach(l=>L.push(`• ${locLabel(l)}${l.type==='Cerimónia'&&l.who?' ('+l.who.toLowerCase()+')':''}: ${[l.name,l.addr].filter(Boolean).join(', ')}${l.time?' · a partir das '+l.time:''}${l.map?'\n  Mapa: '+l.map:''}`))}
- const tl=S.tl.filter(t=>t.time&&t.what).sort((a,b)=>{const f=x=>{let[h,m]=x.split(':').map(Number);if(h<6)h+=24;return h*60+m};return f(a.time)-f(b.time)});
- if(tl.length){L.push('\nPROGRAMA DO DIA');tl.forEach(t=>L.push(`${t.time} · ${t.what}${t.where?' · '+t.where:''}${t.notes?' ('+t.notes+')':''}`))}
- if(S.noSpeech)L.push('\nDISCURSOS\nNão vai haver discursos.');else{const s=S.sp.filter(x=>x.who||x.rel);if(s.length){L.push('\nDISCURSOS');s.forEach(x=>L.push(`• ${[x.who,x.rel&&'('+x.rel+')'].filter(Boolean).join(' ')}${x.when?' · quando: '+x.when:''}${x.where?' · onde: '+x.where:''}`))}}
- if(S.surprises.trim())L.push(`\nSURPRESAS\n${S.surprises.trim()}`);
- if(S.limits.trim())L.push(`\nREGRAS DOS LOCAIS\n${S.limits.trim()}`);if(S.notes.trim())L.push(`\nNOTAS\n${S.notes.trim()}`);
- return L.join('\n')}
-function missing(){const m=[];if(!S.n1&&!S.n2)m.push('nomes');if(!S.date)m.push('data');if(!S.locs.some(l=>l.type==='Cerimónia'&&l.name))m.push('local da cerimónia');if(!S.locs.some(l=>l.type==='Festa'&&l.name))m.push('local da festa');if(!S.tl.some(t=>t.time))m.push('horas do programa');return m}
-function show(){document.querySelectorAll('section.step').forEach(s=>s.classList.toggle('on',+s.dataset.s===step));
- $('#prog').style.width=(step/(STEPS.length-1)*100)+'%';$('#stepn').textContent=step?`${step} de ${STEPS.length-1}`:'';
- $('#back').hidden=step===0;$('#next').hidden=step===STEPS.length-1;$('#next').textContent=step===0?'Começar':step===STEPS.length-2?'Rever e enviar':'Seguinte';
- if(step===3)renderTl();
- if(step===STEPS.length-1){const t=text();$('#out').textContent=t;const mi=missing();$('#miss').innerHTML=mi.length?`Ainda falta: <b>${mi.join(', ')}</b>. Podem enviar assim e completar depois.`:'';$('#wa').href=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;$('#ok').textContent=''}
- window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})}
-function onField(e){const k=e.target.dataset.k;if(!k)return;sp(k,e.target.type==='checkbox'?e.target.checked:e.target.value);save();
- if(k==='noSpeech')renderSp();
- if(/^tl\.\d+\.time$/.test(k))e.target.closest('.ti').classList.toggle('off',!e.target.value);
- if(/^locs\.\d+\.(type|who)$/.test(k)&&e.target.tagName==='SELECT'&&e.type==='change')renderLocs()}
-document.addEventListener('input',onField);document.addEventListener('change',onField);
-document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
- if(b.dataset.add){const a=b.dataset.add;S[a].push(a==='locs'?{type:'Sessão de fotos',who:'',name:'',addr:'',time:''}:a==='tl'?{time:'',what:'',where:'',notes:''}:a==='sp'?{who:'',rel:'',when:'',where:''}:{name:'',rel:'',note:''});save();({locs:renderLocs,tl:renderTl,sp:renderSp,pp:renderPp})[a]();return}
- if(b.dataset.del){const[a,i]=b.dataset.del.split('.');S[a].splice(+i,1);save();({locs:renderLocs,tl:renderTl,sp:renderSp,pp:renderPp})[a]();return}
- if(b.id==='next'){step=Math.min(STEPS.length-1,step+1);show()}
- if(b.id==='back'){step=Math.max(0,step-1);show()}
- if(b.id==='copy'){const t=text();navigator.clipboard.writeText(t).then(()=>{$('#ok').textContent='Texto copiado. Agora é só colar numa mensagem para o Gerardo.'}).catch(()=>{const r=document.createRange();r.selectNodeContents($('#out'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('#ok').textContent='Selecionei o texto. Copiem e colem numa mensagem.'})}
-});
-$('#f').addEventListener('submit',e=>e.preventDefault());
-renderAll();show();
+  let save2 = function() {
+    clearTimeout(st);
+    st = setTimeout(() => {
+      try {
+        localStorage.setItem(KEY, JSON.stringify(S));
+      } catch (e) {
+      }
+    }, 300);
+  }, I2 = function(k, label, type = "text", extra = "") {
+    return `<label class="f"><span>${label}</span><input type="${type}" data-k="${k}" value="${esc(g(k))}" ${extra}></label>`;
+  }, renderLocs2 = function() {
+    $("#locs").innerHTML = S.locs.map((l, i) => {
+      const base = i < 4;
+      let head = l.type === "Preparativos" ? `<h3>Onde se prepara ${l.who === "Noiva" ? "a noiva" : l.who === "Noivo" ? "o noivo" : ""}</h3><div class="two">${I2(`locs.${i}.who`, "Quem", "text")}${I2(`locs.${i}.time`, "A partir de que horas", "time")}</div>` : l.type === "Cerim\xF3nia" ? `<h3>Cerim\xF3nia</h3><label class="f"><span>Tipo</span><select data-k="locs.${i}.who">${["Religiosa", "Civil", "Simb\xF3lica"].map((o) => `<option ${o === l.who ? "selected" : ""}>${o}</option>`).join("")}</select></label>` : l.type === "Festa" ? `<h3>Festa</h3>` : `<h3>Outro local</h3><div class="two"><label class="f"><span>Tipo</span><select data-k="locs.${i}.type">${LOCT.map((o) => `<option ${o === l.type ? "selected" : ""}>${o}</option>`).join("")}</select></label>${I2(`locs.${i}.who`, "O que acontece l\xE1")}</div>${I2(`locs.${i}.time`, "Hora", "time")}`;
+      return `<div class="card">${base ? "" : `<button type="button" class="del" style="float:right" data-del="locs.${i}" aria-label="Remover local">\xD7</button>`}${head}${I2(`locs.${i}.name`, "Nome do local", l.type === "Cerim\xF3nia" ? "text" : "text", 'placeholder="' + (l.type === "Cerim\xF3nia" ? "Igreja de\u2026" : l.type === "Festa" ? "Quinta\u2026" : "Casa dos pais, hotel\u2026") + '"')}${I2(`locs.${i}.addr`, "Morada ou localidade")}${I2(`locs.${i}.map`, "Link do Google Maps (opcional)", "url", 'placeholder="Colem aqui o link do pin" inputmode="url"')}</div>`;
+    }).join("");
+  }, placeOpts2 = function(v) {
+    const o = ["", ...S.locs.map(locLabel)];
+    if (v && !o.includes(v)) o.push(v);
+    return o.map((x) => `<option value="${esc(x)}" ${x === v ? "selected" : ""}>${x ? esc(x) : "Local"}</option>`).join("");
+  }, renderTl2 = function() {
+    $("#tl").innerHTML = S.tl.map((t, i) => `<div class="ti${t.time ? "" : " off"}"><input type="time" data-k="tl.${i}.time" value="${esc(t.time)}" aria-label="Hora"><div class="body"><input data-k="tl.${i}.what" value="${esc(t.what)}" placeholder="O que acontece" aria-label="O que acontece"><select data-k="tl.${i}.where" aria-label="Onde">${placeOpts2(t.where)}</select><input data-k="tl.${i}.notes" value="${esc(t.notes)}" placeholder="Notas (opcional)" aria-label="Notas"></div><button type="button" class="del" data-del="tl.${i}" aria-label="Apagar momento">\xD7</button></div>`).join("");
+  }, renderSp2 = function() {
+    $("#sp").innerHTML = S.noSpeech ? "" : S.sp.map((s, i) => `<div class="row"><button type="button" class="del" data-del="sp.${i}" aria-label="Remover discurso">\xD7</button><div class="two">${I2(`sp.${i}.who`, "Quem fala")}${I2(`sp.${i}.rel`, "Quem \xE9 (pai da noiva, padrinho\u2026)")}</div><div class="two">${I2(`sp.${i}.when`, "Quando (hora ou momento)")}${I2(`sp.${i}.where`, "Onde (igreja, sala, jardim\u2026)")}</div></div>`).join("");
+    $("#addsp").hidden = S.noSpeech;
+  }, renderPp2 = function() {
+    if (!$("#pp")) return;
+    $("#pp").innerHTML = S.pp.map((p, i) => `<div class="row"><button type="button" class="del" data-del="pp.${i}" aria-label="Remover pessoa">\xD7</button><div class="two">${I2(`pp.${i}.name`, "Nome(s)")}${I2(`pp.${i}.rel`, "Quem s\xE3o")}</div>${I2(`pp.${i}.note`, "Nota (ex.: av\xF3 em cadeira de rodas, vem do estrangeiro)")}</div>`).join("");
+  }, bindStatic2 = function() {
+    document.querySelectorAll("section.step [data-k]").forEach((el) => {
+      if (el.closest("#locs,#tl,#sp,#pp")) return;
+      const v = g(el.dataset.k);
+      if (el.type === "checkbox") el.checked = !!v;
+      else el.value = v == null ? "" : v;
+    });
+  }, renderAll2 = function() {
+    renderLocs2();
+    renderTl2();
+    renderSp2();
+    renderPp2();
+    bindStatic2();
+  }, text2 = function() {
+    const L = [];
+    const names = [S.n1, S.n2].filter(Boolean).join(" & ");
+    L.push("BRIEFING DO CASAMENTO");
+    L.push(`Noivos: ${names || "(por preencher)"}`);
+    if (S.date) L.push(`Data: ${S.date.split("-").reverse().join("/")}`);
+    if (S.phone) L.push(`Telem\xF3vel: ${S.phone}`);
+    if (S.email) L.push(`Email: ${S.email}`);
+    if (S.planner) L.push(`Wedding planner: ${S.planner}`);
+    if (S.photo) L.push(`Fot\xF3grafo: ${S.photo}`);
+    if (S.mc) L.push(`Coordena\xE7\xE3o do dia: ${S.mc}`);
+    const lc = S.locs.filter((l) => l.name || l.addr || l.map);
+    if (lc.length) {
+      L.push("\nLOCAIS");
+      lc.forEach((l) => L.push(`\u2022 ${locLabel(l)}${l.type === "Cerim\xF3nia" && l.who ? " (" + l.who.toLowerCase() + ")" : ""}: ${[l.name, l.addr].filter(Boolean).join(", ")}${l.time ? " \xB7 a partir das " + l.time : ""}${l.map ? "\n  Mapa: " + l.map : ""}`));
+    }
+    const tl = S.tl.filter((t) => t.time && t.what).sort((a, b) => {
+      const f = (x) => {
+        let [h, m] = x.split(":").map(Number);
+        if (h < 6) h += 24;
+        return h * 60 + m;
+      };
+      return f(a.time) - f(b.time);
+    });
+    if (tl.length) {
+      L.push("\nPROGRAMA DO DIA");
+      tl.forEach((t) => L.push(`${t.time} \xB7 ${t.what}${t.where ? " \xB7 " + t.where : ""}${t.notes ? " (" + t.notes + ")" : ""}`));
+    }
+    if (S.noSpeech) L.push("\nDISCURSOS\nN\xE3o vai haver discursos.");
+    else {
+      const s = S.sp.filter((x) => x.who || x.rel);
+      if (s.length) {
+        L.push("\nDISCURSOS");
+        s.forEach((x) => L.push(`\u2022 ${[x.who, x.rel && "(" + x.rel + ")"].filter(Boolean).join(" ")}${x.when ? " \xB7 quando: " + x.when : ""}${x.where ? " \xB7 onde: " + x.where : ""}`));
+      }
+    }
+    if (S.surprises.trim()) L.push(`
+SURPRESAS
+${S.surprises.trim()}`);
+    if (S.limits.trim()) L.push(`
+REGRAS DOS LOCAIS
+${S.limits.trim()}`);
+    if (S.notes.trim()) L.push(`
+NOTAS
+${S.notes.trim()}`);
+    return L.join("\n");
+  }, missing2 = function() {
+    const m = [];
+    if (!S.n1 && !S.n2) m.push("nomes");
+    if (!S.date) m.push("data");
+    if (!S.locs.some((l) => l.type === "Cerim\xF3nia" && l.name)) m.push("local da cerim\xF3nia");
+    if (!S.locs.some((l) => l.type === "Festa" && l.name)) m.push("local da festa");
+    if (!S.tl.some((t) => t.time)) m.push("horas do programa");
+    return m;
+  }, show2 = function() {
+    document.querySelectorAll("section.step").forEach((s) => s.classList.toggle("on", +s.dataset.s === step));
+    $("#prog").style.width = step / (STEPS.length - 1) * 100 + "%";
+    $("#stepn").textContent = step ? `${step} de ${STEPS.length - 1}` : "";
+    $("#back").hidden = step === 0;
+    $("#next").hidden = step === STEPS.length - 1;
+    $("#next").textContent = step === 0 ? "Come\xE7ar" : step === STEPS.length - 2 ? "Rever e enviar" : "Seguinte";
+    if (step === 3) renderTl2();
+    if (step === STEPS.length - 1) {
+      const t = text2();
+      $("#out").textContent = t;
+      const mi = missing2();
+      $("#miss").innerHTML = mi.length ? `Ainda falta: <b>${mi.join(", ")}</b>. Podem enviar assim e completar depois.` : "";
+      $("#wa").href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(t)}`;
+      $("#ok").textContent = "";
+    }
+    window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion:reduce)").matches ? "auto" : "smooth" });
+  }, onField2 = function(e) {
+    const k = e.target.dataset.k;
+    if (!k) return;
+    sp(k, e.target.type === "checkbox" ? e.target.checked : e.target.value);
+    save2();
+    if (k === "noSpeech") renderSp2();
+    if (/^tl\.\d+\.time$/.test(k)) e.target.closest(".ti").classList.toggle("off", !e.target.value);
+    if (/^locs\.\d+\.(type|who)$/.test(k) && e.target.tagName === "SELECT" && e.type === "change") renderLocs2();
+  };
+  var save = save2, I = I2, renderLocs = renderLocs2, placeOpts = placeOpts2, renderTl = renderTl2, renderSp = renderSp2, renderPp = renderPp2, bindStatic = bindStatic2, renderAll = renderAll2, text = text2, missing = missing2, show = show2, onField = onField2;
+  const WA_NUMBER = "351914443813";
+  const KEY = "briefing-casamento-v1";
+  const STEPS = ["In\xEDcio", "Voc\xEAs", "Locais", "Programa", "Discursos e notas", "Enviar"];
+  const LOCT = ["Preparativos", "Cerim\xF3nia", "Festa", "Sess\xE3o de fotos", "Outro"];
+  const blank = () => ({
+    n1: "",
+    n2: "",
+    date: "",
+    phone: "",
+    email: "",
+    planner: "",
+    photo: "",
+    mc: "",
+    locs: [{ type: "Preparativos", who: "Noiva", name: "", addr: "", time: "" }, { type: "Preparativos", who: "Noivo", name: "", addr: "", time: "" }, { type: "Cerim\xF3nia", who: "Religiosa", name: "", addr: "", time: "" }, { type: "Festa", who: "", name: "", addr: "", time: "" }],
+    tl: [["", "Come\xE7am os preparativos da noiva", "Preparativos \xB7 Noiva"], ["", "Come\xE7am os preparativos do noivo", "Preparativos \xB7 Noivo"], ["", "Noivo sai para a cerim\xF3nia", ""], ["", "Noiva sai para a cerim\xF3nia", ""], ["", "In\xEDcio da cerim\xF3nia", "Cerim\xF3nia"], ["", "Sa\xEDda dos noivos (chuva de arroz, p\xE9talas)", "Cerim\xF3nia"], ["", "Cocktail", "Festa"], ["", "Sess\xE3o fotogr\xE1fica dos noivos", ""], ["", "Entrada dos noivos na sala", "Festa"], ["", "Jantar", "Festa"], ["", "Corte do bolo", "Festa"], ["", "Primeira dan\xE7a", "Festa"], ["", "Abertura da pista", "Festa"], ["", "Fim da festa", "Festa"]].map(([time, what, where]) => ({ time, what, where, notes: "" })),
+    noSpeech: false,
+    sp: [{ who: "", rel: "", when: "", where: "" }],
+    surprises: "",
+    pp: [{ name: "", rel: "Pais", note: "" }, { name: "", rel: "Padrinhos", note: "" }, { name: "", rel: "Av\xF3s", note: "" }],
+    mIn: "",
+    mOut: "",
+    mDance: "",
+    mFilm: "",
+    limits: "",
+    notes: ""
+  });
+  let S = blank(), step = 0;
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (s && typeof s === "object") S = __spreadValues(__spreadValues({}, S), s);
+  } catch (e) {
+  }
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  let st;
+  const g = (p) => p.split(".").reduce((a, k) => a == null ? a : a[k], S);
+  const sp = (p, v) => {
+    const ks = p.split(".");
+    let a = S;
+    for (let i = 0; i < ks.length - 1; i++) a = a[ks[i]];
+    a[ks[ks.length - 1]] = v;
+  };
+  const locLabel = (l) => l.type === "Preparativos" ? `Preparativos \xB7 ${l.who || "?"}` : l.type === "Cerim\xF3nia" ? "Cerim\xF3nia" : l.type === "Outro" ? l.who || "Outro local" : l.type;
+  document.addEventListener("input", onField2);
+  document.addEventListener("change", onField2);
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    if (b.dataset.add) {
+      const a = b.dataset.add;
+      S[a].push(a === "locs" ? { type: "Sess\xE3o de fotos", who: "", name: "", addr: "", time: "" } : a === "tl" ? { time: "", what: "", where: "", notes: "" } : a === "sp" ? { who: "", rel: "", when: "", where: "" } : { name: "", rel: "", note: "" });
+      save2();
+      ({ locs: renderLocs2, tl: renderTl2, sp: renderSp2, pp: renderPp2 })[a]();
+      return;
+    }
+    if (b.dataset.del) {
+      const [a, i] = b.dataset.del.split(".");
+      S[a].splice(+i, 1);
+      save2();
+      ({ locs: renderLocs2, tl: renderTl2, sp: renderSp2, pp: renderPp2 })[a]();
+      return;
+    }
+    if (b.id === "next") {
+      step = Math.min(STEPS.length - 1, step + 1);
+      show2();
+    }
+    if (b.id === "back") {
+      step = Math.max(0, step - 1);
+      show2();
+    }
+    if (b.id === "copy") {
+      const t = text2();
+      navigator.clipboard.writeText(t).then(() => {
+        $("#ok").textContent = "Texto copiado. Agora \xE9 s\xF3 colar numa mensagem para o Gerardo.";
+      }).catch(() => {
+        const r = document.createRange();
+        r.selectNodeContents($("#out"));
+        const s = getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+        $("#ok").textContent = "Selecionei o texto. Copiem e colem numa mensagem.";
+      });
+    }
+  });
+  $("#f").addEventListener("submit", (e) => e.preventDefault());
+  renderAll2();
+  show2();
 }
+
 </script>
 </body>
 </html>
